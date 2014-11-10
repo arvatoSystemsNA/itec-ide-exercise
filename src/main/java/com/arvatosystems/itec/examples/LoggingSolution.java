@@ -3,8 +3,8 @@ package com.arvatosystems.itec.examples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoggingExample {
-	private static final Logger LOG = LoggerFactory.getLogger(LoggingExample.class);
+public class LoggingSolution {
+	private static final Logger LOG = LoggerFactory.getLogger(LoggingSolution.class);
 	
 	
 	public void logSomethingTheWrongWay(){
@@ -41,7 +41,7 @@ public class LoggingExample {
 	}
 	
 	public static void main(String[] args) {
-		LoggingExample example = new LoggingExample();
+		LoggingSolution example = new LoggingSolution();
 		example.logSomethingTheRightWay();
 		example.logSomethingSlightlyTheBetterWay();
 		example.logSomethingTheRightWay();
