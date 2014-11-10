@@ -3,9 +3,9 @@ package com.arvatosystems.itec.examples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoggingExercice
+public class LoggingExercise
 {
-	private static final Logger LOG = LoggerFactory.getLogger(LoggingExercice.class);
+	private static final Logger LOG = LoggerFactory.getLogger(LoggingExercise.class);
 
 	public void logSomething()
 	{

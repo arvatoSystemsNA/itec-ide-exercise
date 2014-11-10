@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2000-2014 hybris AG All rights reserved. This software is the confidential and proprietary information 
+	of hybris ("Confidential Information"). You shall not disclose such Confidential Information and shall use it only in accordance with 
+	the terms of the license agreement you entered into with hybris. -->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<relations>
+		<relation code="Cart2CartEntry" localized="false" generate="true" autocreate="true">
+			<sourceElement type="Cart" qualifier="order" cardinality="one">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement type="CartEntry" qualifier="entries" cardinality="many" collectiontype="list" ordered="false">
+				<modifiers read="true" write="true" search="true" optional="true" partof="true" />
+			</targetElement>
+		</relation>
+	</relations>
+
+	<itemtypes>
+		<itemtype code="Cart" jaloclass="com.arvatosystems.Cart" autocreate="true" generate="true">
+			<deployment table="Carts" typecode="10001" />
+			<attributes>
+				<attribute autocreate="true" qualifier="code" type="java.lang.String" generate="true">
+					<persistence type="property" qualifier="code" />
+					<modifiers read="true" write="true" search="true" optional="true" unique="true" />
+				</attribute>
+				<attribute autocreate="true" qualifier="calculated" type="boolean" generate="true">
+					<persistence type="property" qualifier="calculated" />
+					<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+					<modifiers read="true" write="true" search="true"/>
+				</attribute>
+				<attribute autocreate="true" qualifier="subtotal" type="java.lang.Double" generate="true">
+					<persistence type="property" qualifier="subtotal" />
+					<modifiers read="true" write="true" search="true"/>
+					<defaultvalue>Double.valueOf(0.0d)</defaultvalue>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="CartEntry" jaloclass="com.arvatosystems.CartEntry" autocreate="true" generate="true">
+			<deployment table="CartEntries" typecode="10002" />
+			<attributes>
+				<attribute autocreate="true" qualifier="quantity" type="int" generate="true">
+					<persistence type="property" qualifier="quantity" />
+					<modifiers read="true" write="true" search="true" />
+				</attribute>
+			</attributes>
+			<attribute autocreate="true" qualifier="productCode" type="java.lang.String" generate="true">
+				<persistence type="property" qualifier="productCode" />
+				<modifiers read="true" write="true" search="true" />
+			</attribute>
+			<attribute autocreate="true" qualifier="unitPrice" type="java.lang.Double" generate="true">
+				<persistence type="property" qualifier="subtotal" />
+				<modifiers read="true" write="true" search="true" />
+				<defaultvalue>Double.valueOf(0.0d)</defaultvalue>
+			</attribute>
+		</attributes>
+		</itemtype>
+
+	</itemtypes>
+</items>
