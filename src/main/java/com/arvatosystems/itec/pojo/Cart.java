@@ -9,6 +9,13 @@ public class Cart
 	private List<CartEntry> entries = new ArrayList<>();
 	private boolean calculated = false;
 	private BigDecimal totalPrice;
+	private OrderStatus status;
+
+	public boolean isValid()
+	{
+		// just a stub
+		return true;
+	}
 
 	public List<CartEntry> getEntries()
 	{
@@ -39,4 +46,15 @@ public class Cart
 	{
 		this.calculated = calculated;
 	}
+
+	public OrderStatus getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(final OrderStatus status)
+	{
+		this.status = status;
+	}
+
 }
