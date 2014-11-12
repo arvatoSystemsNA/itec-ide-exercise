@@ -1,13 +1,12 @@
 package com.arvatosystems.us.hybris.core.lang;
 
 
-
 public class Some<T> extends Option<T>
 {
 	public Some(final T value)
 	{
 		super();
-		setValue(value);
+		this.value = value;
 	}
 
 	@Override
@@ -25,6 +24,6 @@ public class Some<T> extends Option<T>
 	@Override
 	public T get()
 	{
-		return getValue();
+		return value;
 	}
 }

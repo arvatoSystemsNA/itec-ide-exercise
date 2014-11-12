@@ -1,7 +1,6 @@
 package com.arvatosystems.us.hybris.core.lang;
 
 
-
 public class None<T> extends Option<T>
 {
 	@Override

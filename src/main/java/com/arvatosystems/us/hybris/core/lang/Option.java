@@ -1,8 +1,9 @@
 package com.arvatosystems.us.hybris.core.lang;
 
+
 public abstract class Option<T>
 {
-	private T value = null;
+	protected T value = null;
 
 	public abstract boolean isSome();
 
@@ -15,7 +16,7 @@ public abstract class Option<T>
 		return isSome() ? get() : defaultValue;
 	}
 
-	public T getOrFail(final String message)
+	public T getOrFail(final String message, final Object... args)
 	{
 		if (isSome())
 		{
@@ -23,17 +24,14 @@ public abstract class Option<T>
 		}
 		else
 		{
-			throw new DBCException(message);
+			if (args != null)
+			{
+				throw new DBCException(String.format(message, args));
+			}
+			else
+			{
+				throw new DBCException(message);
+			}
 		}
-	}
-
-	protected T getValue()
-	{
-		return this.value;
-	}
-
-	protected void setValue(final T value)
-	{
-		this.value = value;
 	}
 }
