@@ -23,6 +23,9 @@ import com.arvatosystems.itec.service.CartService;
 import com.arvatosystems.itec.service.CommerceCartService;
 import com.arvatosystems.itec.service.ModelService;
 import com.arvatosystems.itec.service.ProductService;
+import com.arvatosystems.us.hybris.core.lang.None;
+import com.arvatosystems.us.hybris.core.lang.Option;
+import com.arvatosystems.us.hybris.core.lang.Some;
 
 public class MethodSeparationSolution
 {
@@ -43,12 +46,30 @@ public class MethodSeparationSolution
 		final SKUVariantProductModel skuModel = (SKUVariantProductModel) productModel;
 
 		// Validate data state
-		validateIfProductInactive(skuModel);
-		validateIfStockIsAvailable(skuModel, request);
+		final Option<String> productActiveResult = validateIfProductInactive(skuModel);
+		if (productActiveResult.isSome())
+		{
+			throwException(productActiveResult);
+		}
+
+		final Option<String> productInStockResult = validateIfStockIsAvailable(skuModel);
+		if (productInStockResult.isSome())
+		{
+			request.getSession().setAttribute("noInventory", "true");
+			throwException(productInStockResult);
+		}
 
 		// Proceed with Add to cart
 		final CommerceCartModification result = addToCartInternal(quantity, cartModel, skuModel);
 		return this.getCartModificationConverter().convert(result);
+	}
+
+	/**
+	 * @throws CommerceCartModificationException
+	 */
+	private void throwException(final Option<String> result)
+	{
+		throw new CommerceCartModificationException(result.get());
 	}
 
 	private CommerceCartModification addToCartInternal(final long quantity, final CartModel cartModel,
@@ -61,10 +82,7 @@ public class MethodSeparationSolution
 		return modification;
 	}
 
-	/**
-	 * @throws CommerceCartModificationException in case no stock is available
-	 */
-	private void validateIfStockIsAvailable(final SKUVariantProductModel skuModel, final HttpServletRequest request)
+	private Option<String> validateIfStockIsAvailable(final SKUVariantProductModel skuModel)
 	{
 		final Set<StockLevelModel> stockLevelSet = skuModel.getStockLevels();
 		// only expecting one StockLevelModel to be returned in the set of Stock Levels
@@ -72,23 +90,20 @@ public class MethodSeparationSolution
 		{
 			if (stockLevel.getAvailable() > 0)
 			{
-				return;
+				return new None<>();
 			}
 		}
 
-		request.getSession().setAttribute("noInventory", "true");
-		throw new CommerceCartModificationException("Product " + skuModel.getCode() + " has no inventory. Not added to cart");
+		return new Some<>("Product " + skuModel.getCode() + " has no inventory. Not added to cart");
 	}
 
-	/**
-	 * @throws CommerceCartModificationException in case the product is INACTIVE
-	 */
-	private void validateIfProductInactive(final SKUVariantProductModel skuModel)
+	private Option<String> validateIfProductInactive(final SKUVariantProductModel skuModel)
 	{
 		if (skuModel.getBaseProduct().getStatus().equals("INACTIVE"))
 		{
-			throw new CommerceCartModificationException("Product " + skuModel.getCode() + " is inactive. Not added to cart");
+			return new Some<>("Product " + skuModel.getCode() + " is inactive. Not added to cart");
 		}
+		return new None<>();
 	}
 
 	private void setUuidAndSaveCartIfNotExisting(final CartModel cartModel)
