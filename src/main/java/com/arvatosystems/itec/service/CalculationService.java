@@ -6,4 +6,6 @@ public interface CalculationService
 {
 	void calculateCart(final Cart cart);
 
+	void calculateCartAsynchronously(final Cart cart);
+
 }

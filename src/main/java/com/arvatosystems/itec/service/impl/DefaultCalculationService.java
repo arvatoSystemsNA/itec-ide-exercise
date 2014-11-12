@@ -6,7 +6,7 @@ import com.arvatosystems.itec.pojo.Cart;
 import com.arvatosystems.itec.pojo.CartEntry;
 import com.arvatosystems.itec.service.CalculationService;
 import com.arvatosystems.itec.service.PersistenceService;
-import com.arvatosystems.us.hybris.core.lang.DBC;
+import com.google.common.base.Throwables;
 
 public class DefaultCalculationService implements CalculationService
 {
@@ -15,16 +15,46 @@ public class DefaultCalculationService implements CalculationService
 	@Override
 	public void calculateCart(final Cart cart)
 	{
-		DBC.checkNotNull(cart);
+		// another exception thrown for testing purposes
+		if (cart == null)
+		{
+			throw new IllegalArgumentException("The cart can not be null");
+		}
 
 		BigDecimal total = BigDecimal.ZERO;
-		for (final CartEntry entry : cart.getEntries()){
+		for (final CartEntry entry : cart.getEntries())
+		{
 			total = total.add(entry.getUnitPrice().multiply(BigDecimal.valueOf(entry.getQuantity())));
 		}
 
 		cart.setTotalPrice(total);
 		cart.setCalculated(true);
 		persitenceService.save(cart);
+
+	}
+
+	@Override
+	public void calculateCartAsynchronously(final Cart cart)
+	{
+		// just some mock code to demonstrate asynchronous testing. DO NOT WRITE THAT KIND OF CODE IN PRODUCTION!
+		new Thread(new Runnable()
+		{
+
+			@Override
+			public void run()
+			{
+				try
+				{
+					Thread.sleep(1000);
+					calculateCart(cart);
+				}
+				catch (final InterruptedException e)
+				{
+					Throwables.propagate(e);
+				}
+
+			}
+		}).start();
 
 	}
 
