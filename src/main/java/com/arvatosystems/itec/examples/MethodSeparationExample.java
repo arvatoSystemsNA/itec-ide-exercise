@@ -40,8 +40,7 @@ public class MethodSeparationExample
 			modelService.save(cartModel);
 		}
 
-		if ((((SKUVariantProductModel) this.getProductService().getProductForCode(code)).getBaseProduct())
-.getStatus().equals(
+		if ((((SKUVariantProductModel) this.getProductService().getProductForCode(code)).getBaseProduct()).getStatus().equals(
 				"INACTIVE"))
 		{
 			throw new CommerceCartModificationException("Product " + code + " is inactive. Not added to cart");
@@ -54,8 +53,8 @@ public class MethodSeparationExample
 		{
 			if (stockLevel.getAvailable() > 0)
 			{
-				final CommerceCartModification modification = this.commerceCartService.addCart(cartModel, product,
-						quantity, product.getUnit(), false);
+				final CommerceCartModification modification = this.commerceCartService.addCart(cartModel, product, quantity,
+						product.getUnit(), false);
 
 				return this.getCartModificationConverter().convert(modification);
 			}

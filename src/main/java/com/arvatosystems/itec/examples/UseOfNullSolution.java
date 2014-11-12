@@ -34,7 +34,7 @@ public class UseOfNullSolution
 		return new Some<>(models.get(0));
 	}
 
-	public <M extends ItemModel> List<M> findAllByAttributes(final Map<String, ? extends Object> attribs,
+	private <M extends ItemModel> List<M> findAllByAttributes(final Map<String, ? extends Object> attribs,
 			final Map<String, Boolean> orderByMap, final int count, final int start, final Class<M> modelClass)
 	{
 		// Only a sample, implementation missing
