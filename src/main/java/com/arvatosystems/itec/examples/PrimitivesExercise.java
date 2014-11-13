@@ -25,6 +25,13 @@ public class PrimitivesExercise
 
 	public void runEqualityCases()
 	{
+		// The people who guess right get a special prize...
+		// 1. 0011
+		// 2. 1111
+		// 3. 0000
+		// 4. 0010
+		// 5. 1010
+		// 6. 1000
 		System.out.println(new Integer(5) == new Integer(5)); // ?
 		System.out.println(new Integer(500) == new Integer(500)); // ?
 
@@ -43,9 +50,9 @@ public class PrimitivesExercise
 
 	public static void main(final String[] args)
 	{
-		final PrimitivesExercise exercise = new PrimitivesExercise();
-		exercise.runALoop();
-		exercise.runEqualityCases();
-		exercise.runTestOnBoolean();
+		// final PrimitivesExercise exercise = new PrimitivesExercise();
+		// exercise.runALoop();
+		// exercise.runEqualityCases();
+		// exercise.runTestOnBoolean();
 	}
 }
