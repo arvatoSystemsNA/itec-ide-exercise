@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.arvatosystems.us.hybris.core.lang.Pair;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Throwables;
 import com.google.common.io.Files;
 
 public class LanguagePitfallsSolution
@@ -65,10 +66,17 @@ public class LanguagePitfallsSolution
 	 * @param outputFile The output file
 	 * @throws IOException If the input or output file can't be accessed.
 	 */
-	public void copyInToOutWithUtility(final File inputFile, final File outputFile) throws IOException
+	public void copyInToOutWithUtility(final File inputFile, final File outputFile)
 	{
 		// copy files with Google lib
-		Files.copy(inputFile, outputFile);
+		try
+		{
+			Files.copy(inputFile, outputFile);
+		}
+		catch (final IOException e)
+		{
+			Throwables.propagate(e);
+		}
 
 		// fail fast if rename fails
 		final File targetFile = new File(inputFile.getParent(), inputFile.getName() + ".backup");
