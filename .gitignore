@@ -4,3 +4,9 @@
 # Maven
 log/
 target/
+
+# Front-end
+front-end/css
+front-end/js
+front-end/bower_components
+front-end/node_modules
