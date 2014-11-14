@@ -11,12 +11,12 @@ import org.slf4j.LoggerFactory;
 import com.arvatosystems.itec.pojo.ProductModel;
 import com.arvatosystems.us.hybris.core.lang.Option;
 
-public class UseOfNullConsumer
+public class UseOfNullSolutionConsumer
 {
 	@Resource
 	private UseOfNullSolution useOfNullSolution;
 
-	private static final Logger LOG = LoggerFactory.getLogger(UseOfNullConsumer.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UseOfNullSolutionConsumer.class);
 
 	/**
 	 * Use result or handle the no result use case
@@ -46,7 +46,7 @@ public class UseOfNullConsumer
 		final String productCode = "123123";
 		attributes.put("code", productCode);
 		final ProductModel result = useOfNullSolution.findFirstByAttributes(attributes, new HashMap<String, Boolean>(),
-				ProductModel.class).getOrFail("Failed to retrieve object", productCode);
+				ProductModel.class).getOrFail("Failed to retrieve object %s", productCode);
 
 		// use the result
 		LOG.info(result.getStatus());

@@ -30,9 +30,14 @@ public class LanguagePitfallsExercise
 		// out.write(buffer, 0, len);
 		// len = is.read(buffer);
 		// }
+	}
+
+	public void rename(final File inputFile)
+	{
+		final File targetFile = new File(inputFile.getParent(), inputFile.getName() + ".backup");
 
 		// rename original file with backup extension
-		inputFile.renameTo(new File(inputFile.getParent(), inputFile.getName() + ".backup"));
+		inputFile.renameTo(targetFile);
 	}
 
 	public void swap(final String str1, final String str2)

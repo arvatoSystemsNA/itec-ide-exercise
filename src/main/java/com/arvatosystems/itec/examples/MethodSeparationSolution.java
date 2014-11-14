@@ -99,7 +99,7 @@ public class MethodSeparationSolution
 
 	private Option<String> validateIfProductInactive(final SKUVariantProductModel skuModel)
 	{
-		if (skuModel.getBaseProduct().getStatus().equals("INACTIVE"))
+		if ("INACTIVE".equals(skuModel.getBaseProduct().getStatus()))
 		{
 			return new Some<>("Product " + skuModel.getCode() + " is inactive. Not added to cart");
 		}

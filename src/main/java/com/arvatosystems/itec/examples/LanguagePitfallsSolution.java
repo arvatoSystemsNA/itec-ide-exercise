@@ -56,22 +56,21 @@ public class LanguagePitfallsSolution
 				len = is.read(buffer);
 			}
 		}
+
+		// or: using 3rd party libraries
+		Files.copy(inputFile, outputFile);
 	}
 
 	/**
-	 * Alternative version using Google IO library
+	 * Demonstrates how to rename a file and check its result
 	 *
 	 * @param inputFile The input file
-	 * @param outputFile The output file
-	 * @throws IOException If the input or output file can't be accessed.
 	 */
-	public void copyInToOutWithUtility(final File inputFile, final File outputFile) throws IOException
+	public void rename(final File inputFile)
 	{
-		// copy files with Google lib
-		Files.copy(inputFile, outputFile);
+		final File targetFile = new File(inputFile.getParent(), inputFile.getName() + ".backup");
 
 		// fail fast if rename fails
-		final File targetFile = new File(inputFile.getParent(), inputFile.getName() + ".backup");
 		Preconditions.checkArgument(inputFile.renameTo(targetFile), "Could not rename file %s to %s", inputFile, targetFile);
 
 		// or alternatively at least log

@@ -77,12 +77,12 @@ public class ExceptionHandlingSolution
 		final Option<Cart> cartResult = findCartById(cartId);
 
 		// this will throw an exception if the order is not found
-		final Cart order = cartResult.getOrFail("Cart with code %s not found", cartId);
+		final Cart cart = cartResult.getOrFail("Cart with code %s not found", cartId);
 
 		// this will throw an exception if the order is not valid
-		DBC.checkArgument(order.isValid(), "Cart with code %s is not valid", cartId);
+		DBC.checkArgument(cart.isValid(), "Cart with code %s is not valid", cartId);
 
-		order.setStatus(status);
+		cart.setStatus(status);
 	}
 
 
