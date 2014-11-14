@@ -13,4 +13,11 @@ public class LoggingExercise
 		LOG.debug("Welcome to " + someString);
 	}
 
+
+	// private Integer returnSomethingVeryCostly()
+	// {
+	// LOG.info("This is a very expensive operation");
+	// final Integer iAmExpensive = Integer.valueOf(500);
+	// return iAmExpensive;
+	// }
 }

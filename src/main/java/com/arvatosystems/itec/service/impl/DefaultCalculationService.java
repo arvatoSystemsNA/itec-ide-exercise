@@ -6,6 +6,7 @@ import com.arvatosystems.itec.pojo.Cart;
 import com.arvatosystems.itec.pojo.CartEntry;
 import com.arvatosystems.itec.service.CalculationService;
 import com.arvatosystems.itec.service.PersistenceService;
+import com.arvatosystems.us.hybris.core.lang.DBC;
 import com.google.common.base.Throwables;
 
 public class DefaultCalculationService implements CalculationService
@@ -15,12 +16,8 @@ public class DefaultCalculationService implements CalculationService
 	@Override
 	public void calculateCart(final Cart cart)
 	{
-		// another exception thrown for testing purposes
-		if (cart == null)
-		{
-			throw new IllegalArgumentException("The cart can not be null");
-		}
-
+		// I reallly want an illegal argument exception if cart is null
+		DBC.checkArgument(cart != null, "The cart can not be null");
 		BigDecimal total = BigDecimal.ZERO;
 		for (final CartEntry entry : cart.getEntries())
 		{

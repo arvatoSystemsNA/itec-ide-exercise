@@ -23,6 +23,7 @@ import com.arvatosystems.us.hybris.core.util.Executable;
 
 public class DefaultCalculationServiceSolutionTest
 {
+
 	private final DefaultCalculationService calculationService = new DefaultCalculationService();
 
 	@Rule
@@ -55,13 +56,16 @@ public class DefaultCalculationServiceSolutionTest
 	@Test
 	public void checkTotals()
 	{
+		// Given
 		final Cart cart = new Cart();
 		cart.getEntries().add(new CartEntry("product1", 1, BigDecimal.valueOf(10)));
 		cart.getEntries().add(new CartEntry("product2", 1, BigDecimal.valueOf(20)));
 		cart.getEntries().add(new CartEntry("product3", 2, BigDecimal.valueOf(20)));
 
+		// When
 		calculationService.calculateCart(cart);
 
+		// Then
 		assertEquals(BigDecimal.valueOf(70), cart.getTotalPrice());
 		verify(persistenceService).save(cart);
 	}
@@ -83,7 +87,8 @@ public class DefaultCalculationServiceSolutionTest
 	}
 
 	@Test
-	public void checkAsynchronousTotals()
+	@Ignore
+	public void checkAsynchronousTotalsTheWrongWay() throws InterruptedException
 	{
 		// This is a badly written test that is going to fail.
 		final Cart cart = new Cart();
@@ -91,6 +96,24 @@ public class DefaultCalculationServiceSolutionTest
 		cart.getEntries().add(new CartEntry("product2", 1, BigDecimal.valueOf(20)));
 		cart.getEntries().add(new CartEntry("product3", 2, BigDecimal.valueOf(20)));
 
+		calculationService.calculateCartAsynchronously(cart);
+
+		Thread.sleep(5000);
+		assertEquals(BigDecimal.valueOf(70), cart.getTotalPrice());
+		verify(persistenceService).save(cart);
+	}
+
+	@Test
+	public void checkAsynchronousTotals()
+	{
+		// This is a badly written test that is going to fail.
+		// Given
+		final Cart cart = new Cart();
+		cart.getEntries().add(new CartEntry("product1", 1, BigDecimal.valueOf(10)));
+		cart.getEntries().add(new CartEntry("product2", 1, BigDecimal.valueOf(20)));
+		cart.getEntries().add(new CartEntry("product3", 2, BigDecimal.valueOf(20)));
+
+		// When - then
 		assertThatAfter(10000, matchCondition(equalTo(BigDecimal.valueOf(70)), new Executable<BigDecimal>()
 		{
 
