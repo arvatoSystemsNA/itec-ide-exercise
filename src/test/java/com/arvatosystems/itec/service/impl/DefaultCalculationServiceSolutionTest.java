@@ -1,9 +1,11 @@
 package com.arvatosystems.itec.service.impl;
 
 import static com.arvatosystems.us.hybris.core.concurrent.ConcurrencyUtils.assertThatAfter;
+import static com.arvatosystems.us.hybris.core.constants.AsycoreConstants.PER_MIL;
 import static com.arvatosystems.us.hybris.core.util.ConditionTemplate.matchCondition;
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.closeTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 
 import java.math.BigDecimal;
@@ -20,7 +22,6 @@ import com.arvatosystems.itec.pojo.Cart;
 import com.arvatosystems.itec.pojo.CartEntry;
 import com.arvatosystems.itec.service.PersistenceService;
 import com.arvatosystems.us.hybris.core.util.Executable;
-
 public class DefaultCalculationServiceSolutionTest
 {
 
@@ -99,7 +100,8 @@ public class DefaultCalculationServiceSolutionTest
 		calculationService.calculateCartAsynchronously(cart);
 
 		Thread.sleep(5000);
-		assertEquals(BigDecimal.valueOf(70), cart.getTotalPrice());
+
+		assertThat(cart.getTotalPrice(), closeTo(BigDecimal.valueOf(70), PER_MIL));
 		verify(persistenceService).save(cart);
 	}
 
@@ -114,9 +116,8 @@ public class DefaultCalculationServiceSolutionTest
 		cart.getEntries().add(new CartEntry("product3", 2, BigDecimal.valueOf(20)));
 
 		// When - then
-		assertThatAfter(10000, matchCondition(equalTo(BigDecimal.valueOf(70)), new Executable<BigDecimal>()
+		assertThatAfter(10000, matchCondition(closeTo(BigDecimal.valueOf(70), PER_MIL), new Executable<BigDecimal>()
 		{
-
 			@Override
 			public BigDecimal execute() throws Exception
 			{
