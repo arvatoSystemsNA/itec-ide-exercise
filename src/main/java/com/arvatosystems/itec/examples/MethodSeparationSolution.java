@@ -37,6 +37,7 @@ public class MethodSeparationSolution
 
 	public CartModificationData addToCart(final String code, final long quantity, final HttpServletRequest request)
 	{
+		// Preconditions
 		checkNotNull(request);
 		checkArgument(StringUtils.isNotBlank(code), "code must be provided");
 

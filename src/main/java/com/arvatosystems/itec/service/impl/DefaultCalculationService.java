@@ -6,17 +6,18 @@ import com.arvatosystems.itec.pojo.Cart;
 import com.arvatosystems.itec.pojo.CartEntry;
 import com.arvatosystems.itec.service.CalculationService;
 import com.arvatosystems.itec.service.PersistenceService;
+import com.arvatosystems.us.hybris.core.concurrent.JaloExecutorService;
 import com.arvatosystems.us.hybris.core.lang.DBC;
 import com.google.common.base.Throwables;
 
 public class DefaultCalculationService implements CalculationService
 {
 	private PersistenceService persitenceService;
+	private JaloExecutorService jaloExecutorService;
 
 	@Override
 	public void calculateCart(final Cart cart)
 	{
-		// I reallly want an illegal argument exception if cart is null
 		DBC.checkArgument(cart != null, "The cart can not be null");
 		BigDecimal total = BigDecimal.ZERO;
 		for (final CartEntry entry : cart.getEntries())
@@ -33,16 +34,15 @@ public class DefaultCalculationService implements CalculationService
 	@Override
 	public void calculateCartAsynchronously(final Cart cart)
 	{
-		// just some mock code to demonstrate asynchronous testing. DO NOT WRITE THAT KIND OF CODE IN PRODUCTION!
-		new Thread(new Runnable()
+		// just some demo code to demonstrate asynchronous functionality.
+		jaloExecutorService.execute(new Runnable()
 		{
-
 			@Override
 			public void run()
 			{
 				try
 				{
-					Thread.sleep(1000);
+					Thread.sleep(3000); // simulate expensive operation
 					calculateCart(cart);
 				}
 				catch (final InterruptedException e)
@@ -51,8 +51,7 @@ public class DefaultCalculationService implements CalculationService
 				}
 
 			}
-		}).start();
-
+		});
 	}
 
 	public PersistenceService getPersitenceService()

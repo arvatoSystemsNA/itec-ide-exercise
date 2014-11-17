@@ -9,6 +9,7 @@ public class PrimitivesExercise
 {
 	private static final Logger LOG = LoggerFactory.getLogger(PrimitivesExercise.class);
 
+	@SuppressWarnings("all")
 	public void runALoop()
 	{
 		final long startTime = System.currentTimeMillis();
@@ -26,12 +27,12 @@ public class PrimitivesExercise
 	public void runEqualityCases()
 	{
 		// The people who guess right get a special prize...
-		// 1. 0011
-		// 2. 1111
-		// 3. 0000
-		// 4. 0010
-		// 5. 1010
-		// 6. 1000
+		// 1. false false true true
+		// 2. true true true true
+		// 3. false false false false
+		// 4. false false true false
+		// 5. true false true false
+		// 6. true false false false
 		System.out.println(new Integer(5) == new Integer(5)); // ?
 		System.out.println(new Integer(500) == new Integer(500)); // ?
 
@@ -39,6 +40,7 @@ public class PrimitivesExercise
 		System.out.println(Integer.valueOf(500) == Integer.valueOf(500)); // ?
 	}
 
+	@SuppressWarnings("all")
 	public void runTestOnBoolean()
 	{
 		final Address address = new Address();
@@ -50,8 +52,8 @@ public class PrimitivesExercise
 
 	public static void main(final String[] args)
 	{
-		// final PrimitivesExercise exercise = new PrimitivesExercise();
-		// exercise.runALoop();
+		final PrimitivesExercise exercise = new PrimitivesExercise();
+		exercise.runALoop();
 		// exercise.runEqualityCases();
 		// exercise.runTestOnBoolean();
 	}

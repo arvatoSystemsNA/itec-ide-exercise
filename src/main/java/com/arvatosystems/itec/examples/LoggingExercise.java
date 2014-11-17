@@ -7,9 +7,8 @@ public class LoggingExercise
 {
 	private static final Logger LOG = LoggerFactory.getLogger(LoggingExercise.class);
 
-	public void logSomething()
+	public void logSomething(final String someString)
 	{
-		final String someString = "ITEC";
 		LOG.debug("Welcome to " + someString);
 	}
 
@@ -17,7 +16,8 @@ public class LoggingExercise
 	// private Integer returnSomethingVeryCostly()
 	// {
 	// LOG.info("This is a very expensive operation");
-	// final Integer iAmExpensive = Integer.valueOf(500);
+	// final Integer iAmExpensive = Integer.valueOf(Integer.MAX_VALUE);
 	// return iAmExpensive;
 	// }
+
 }
