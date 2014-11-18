@@ -108,14 +108,13 @@ public class DefaultCalculationServiceSolutionTest
 	@Test
 	public void checkAsynchronousTotals()
 	{
-		// This is a badly written test that is going to fail.
 		// Given
 		final Cart cart = new Cart();
 		cart.getEntries().add(new CartEntry("product1", 1, BigDecimal.valueOf(10)));
 		cart.getEntries().add(new CartEntry("product2", 1, BigDecimal.valueOf(20)));
 		cart.getEntries().add(new CartEntry("product3", 2, BigDecimal.valueOf(20)));
 
-		// When - then
+		// When - then with a timeout of 10 seconds
 		assertThatAfter(10000, matchCondition(closeTo(BigDecimal.valueOf(70), PER_MIL), new Executable<BigDecimal>()
 		{
 			@Override
