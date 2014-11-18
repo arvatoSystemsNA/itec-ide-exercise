@@ -3,6 +3,7 @@
 # Front-end
 
 The following instructions allow you to run the exercises in the front-end directory on your local machine:
+
 1. Install [Node.js](http://nodejs.org) (On a Mac, it's recommended that you do this using [Homebrew](http://brew.sh) but any method will work).
 
   Node.js is required by most of the rest of the front-end tools that you'll use
