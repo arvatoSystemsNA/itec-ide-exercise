@@ -26,7 +26,7 @@ public class PrimitivesExercise
 
 	public void runEqualityCases()
 	{
-		// The people who guess right get a special prize...
+		// Select your answer:
 		// 1. false false true true
 		// 2. true true true true
 		// 3. false false false false
