@@ -5,6 +5,20 @@
 	<groupId>com.arvatosystems.itec</groupId>
 	<artifactId>itecexamples</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
+	<distributionManagement>
+		<repository>
+		      <id>aws-release</id>
+		      <name>AWS Release Repository</name>
+		      <url>s3://arvato-na-repository/release</url>
+		    </repository>
+		    <snapshotRepository>
+		      <id>aws-snapshot</id>
+		      <name>AWS Snapshot Repository</name>
+		      <url>s3://arvato-na-repository/snapshot</url>
+		    </snapshotRepository>
+	</distributionManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -83,5 +97,13 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		
+		<extensions>
+			<extension>
+			        <groupId>org.springframework.build</groupId>
+			        <artifactId>aws-maven</artifactId>
+			        <version>5.0.0.RELEASE</version>
+			      </extension>
+		</extensions>
 	</build>
 </project>
