@@ -25,7 +25,7 @@ public class ExceptionHandlingSolution
 	 *
 	 * @param cart The cart
 	 */
-	public void exportCartToFile(final Cart cart)
+	public Option<File> exportCartToFile(final Cart cart)
 	{
 		// convert cart model to DTO
 		final CartDTO dto = convertCart(cart);
@@ -38,7 +38,7 @@ public class ExceptionHandlingSolution
 		}
 		catch (final IOException e)
 		{
-			Throwables.propagate(e);
+			throw Throwables.propagate(e);
 		}
 
 		// write DTO to file
@@ -47,6 +47,8 @@ public class ExceptionHandlingSolution
 		// update order status
 		cart.setStatus(OrderStatus.PROCESSING);
 		persistenceService.save(cart);
+
+		return new Some<>(tempFile);
 	}
 
 	/**

@@ -9,6 +9,9 @@ import com.arvatosystems.itec.pojo.Cart;
 import com.arvatosystems.itec.pojo.CartDTO;
 import com.arvatosystems.itec.pojo.OrderStatus;
 import com.arvatosystems.itec.service.PersistenceService;
+import com.arvatosystems.us.hybris.core.lang.None;
+import com.arvatosystems.us.hybris.core.lang.Option;
+import com.arvatosystems.us.hybris.core.lang.Some;
 
 public class ExceptionHandlingExercise
 {
@@ -20,7 +23,7 @@ public class ExceptionHandlingExercise
 	 *
 	 * @param cart The cart
 	 */
-	public void exportCartToFile(final Cart cart)
+	public Option<File> exportCartToFile(final Cart cart)
 	{
 		try
 		{
@@ -36,11 +39,15 @@ public class ExceptionHandlingExercise
 			// update order status
 			cart.setStatus(OrderStatus.PROCESSING);
 			persistenceService.save(cart);
+
+			return new Some<>(tempFile);
 		}
 		catch (final IOException e)
 		{
 			e.printStackTrace();
 		}
+
+		return new None<>();
 	}
 
 	/**
